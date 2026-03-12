@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle Individuo</title>
+</head>
+<body>
+    <h1>Detalle Individuo</h1>
+    <p><b>Nombre:</b><span th:text="${individuo.nombre}"></span></p> 
+    <p><b>Apellido:</b><span th:text="${individuo.apellido}"></span></p>
+    <p><b>Edad:</b><span th:text="${individuo.edad}"></span></p>
+    <p><b>Email:</b><span th:text="${individuo.email}"></span></p>
+    <p><b>Telefono:</b><span th:text="${individuo.telefono}"></span></p>
+
+    <hr>
+
+    <a th:href="@{/}"> Volver a la lista</a>
+       
+</body>
+</html>

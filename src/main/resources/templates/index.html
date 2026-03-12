@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Individuo</title>
+</head>
+<body>
+<h1>Lista de Individuo</h1>
+
+
+
+<form method="get" action="/">
+    <input type="text" name="q" placeholder="Buscar por nombre...">
+    <button type="submit">Buscar</button>
+</form>
+<hr>
+<a th:href="@{/nuevo}">Nuevo Individuo</a>
+<hr>
+
+<table border="1" cellpadding="8">
+    <thead>
+    <tr>  
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Edad</th>
+        <th>Email</th>
+        <th>Telefono</th>
+        <th>Accion</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    <tr th:each="i : ${lista}">
+        <td th:text="${i.nombre}"></td>
+        <td th:text="${i.apellido}"></td>
+        <td th:text="${i.edad}"></td>
+        <td th:text="${i.email}"></td>
+        <td th:text="${i.telefono}"></td>
+        <td>
+            <a th:href="@{/detalle(id=${i.idIndividuo})}">Ver</a>
+
+            <a th:href="@{/editar}">Editar</a>
+        </td>
+    </tr>
+    </body>
+</table>
+
+</tbody>
+</html>

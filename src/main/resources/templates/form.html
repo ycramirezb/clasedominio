@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario individuo</title>
+</head>
+<body>
+    <h1 th:text="${individuo.idIndividuo == null ? 'Nuevo Individuo' : 'Editar Individuo'}"></h1>
+
+    <form th:action="@{/guardar}" th:object="${individuo}" method="post">
+        <input type="hidden" th:field="*{IdIndividuo}" />
+        
+        <label>Nombre</label>
+        <input type="text" th:field="*{nombre}" required />
+
+        <label>Apellido</label>
+        <input type="text" th:field="*{apellido}" required /> 
+        
+        <label>Edad</label>
+        <input type="number" th:field="*{edad}" required /> 
+
+        <label>Email</label>
+        <input type="email" th:field="*{email}" required /> 
+
+        <label>Telefono</label>
+        <input type="text" th:field="*{telefono}" required /> 
+
+        <br><br>
+        <button type="submit">Guardar</button>
+        <a th:href="@{/}">Cancelar</a>
+
+    </form>
+    
+</body>
+</html>
