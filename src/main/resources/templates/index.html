@@ -38,11 +38,11 @@
         <td th:text="${i.email}"></td>
         <td th:text="${i.telefono}"></td>
         <td>
-            <a th:href="@{/detalle(id=${i.idIndividuo})}">Ver</a>
-
-            <a th:href="@{/editar}">Editar</a>
-        </td>
-    </tr>
+            <a th:href="@{/detalle(id=${i.idIndividuo})}">Ver</a>          
+            <a th:href="@{/editar(id=${i.idIndividuo})}">Editar</a>
+            <a th:href="@{/eliminar(id=${i.idIndividuo})}">Eliminar</a>
+        
+        </tr>
     </body>
 </table>
 

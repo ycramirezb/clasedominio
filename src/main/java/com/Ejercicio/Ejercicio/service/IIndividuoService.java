@@ -10,8 +10,8 @@ public interface IIndividuoService {
 
     Individuo buscarIndividuoPorId(Integer id);
     void guardarIndividuo(Individuo individuo);
-
-
+    void eliminarIndividuo(Integer id);
+    void editarIndividuo(Integer id);
 
     
 }

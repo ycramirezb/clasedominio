@@ -52,8 +52,7 @@ public class HomeController {
         nuevo.setTelefono("9999999999");
 
         individuoService.guardarIndividuo(nuevo);
-
-    
+   
         return "redirect:/";
     }
 
@@ -65,10 +64,25 @@ public class HomeController {
 
     @PostMapping("/guardar")
     public String guardar(Individuo individuo) {
-        individuoService.guardarIndividuo(individuo);
-        
+        individuoService.guardarIndividuo(individuo);       
         return "redirect:/";
     }
+
+    @GetMapping("/eliminar")
+    public String eliminar(@RequestParam ("id") Integer id) {
+        individuoService.eliminarIndividuo(id);
+
+        return "redirect:/";
+    }
+
+    @GetMapping("/editar")
+    public String editar(@RequestParam("id") Integer id, Model model) {
+        Individuo individuo = individuoService.buscarIndividuoPorId(id);
+        model.addAttribute("individuo", individuo);
+        return "/form";
+    }
+    
+    
     
     
     

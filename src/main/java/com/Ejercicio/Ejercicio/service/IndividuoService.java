@@ -27,5 +27,14 @@ public class IndividuoService implements IIndividuoService {
     public void guardarIndividuo(Individuo individuo){
         individuoDao.save(individuo);
     }
+
+    @Override
+    public void eliminarIndividuo(Integer id){
+        individuoDao.deleteById(id);
+    }
     
+    @Override
+    public void editarIndividuo(Integer id){
+        individuoDao.findById(id);
+    }
 }
