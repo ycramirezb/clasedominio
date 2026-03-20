@@ -24,7 +24,7 @@ public UserDetailsService users(PasswordEncoder passwordEncoder){
     UserDetails usuario1 = User.builder()
     .username("admin")
     .password(passwordEncoder.encode("00000"))
-    .roles("ADMIN.")
+    .roles("ADMIN")
     .build();
 
     UserDetails usuario2 = User.builder()
