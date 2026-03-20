@@ -1,45 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario individuo</title>
+    <title>Formulario Individuo</title>
     <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-    <h1 th:text="${individuo.idIndividuo == null ? 'Nuevo Individuo' : 'Editar Individuo'}"></h1>
 
-    <form th:action="@{/guardar}" th:object="${individuo}" method="post">
-        <input type="hidden" th:field="*{IdIndividuo}" />
-        
-        <label>Nombre</label>
-        <input type="text" th:field="*{nombre}" required />
-        <span style="color:blue" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
-        <br><br>
+<nav class="navbar">
+    <a th:href="@{/}" class="navbar-brand">📋 Gestión de Individuos</a>
+</nav>
 
-        <label>Apellido</label>
-        <input type="text" th:field="*{apellido}" required /> 
-        <span style="color:blue" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
-        <br><br>
-        
-        <label>Edad</label>
-        <input type="number" th:field="*{edad}" required /> 
+<div class="container-sm">
+    <div class="card">
+        <div class="card-body">
+            <h1 th:text="${individuo.idIndividuo == null ? 'Nuevo Individuo' : 'Editar Individuo'}"></h1>
 
-        <label>Email</label>
-        <input type="email" th:field="*{email}" required /> 
-        <span style="color:blue" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-        <br><br>
+            <form th:action="@{/guardar}" th:object="${individuo}" method="post">
+                <input type="hidden" th:field="*{idIndividuo}" />
 
-        <label>Telefono</label>
-        <input type="text" th:field="*{telefono}" required /> 
-        <span style="color:blue" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
-        <br><br>
+                <div class="form-group">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" th:field="*{nombre}" class="form-control" placeholder="Ej: Juan">
+                    <div class="form-error" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+                </div>
 
-        <br><br>
-        <button type="submit">Guardar</button>
-        <button th:href="@{/}">Cancelar</button>
+                <div class="form-group">
+                    <label class="form-label">Apellido</label>
+                    <input type="text" th:field="*{apellido}" class="form-control" placeholder="Ej: García">
+                    <div class="form-error" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></div>
+                </div>
 
-    </form>
-    
+                <div class="form-group">
+                    <label class="form-label">Edad</label>
+                    <input type="number" th:field="*{edad}" class="form-control" placeholder="Ej: 30" min="0" max="120">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" th:field="*{email}" class="form-control" placeholder="correo@ejemplo.com">
+                    <div class="form-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" th:field="*{telefono}" class="form-control" placeholder="Ej: 3001234567">
+                    <div class="form-error" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Guardar</button>
+                    <a th:href="@{/}" class="btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

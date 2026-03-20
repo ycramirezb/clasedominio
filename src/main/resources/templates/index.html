@@ -1,57 +1,76 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Individuo</title>
+    <title>Lista de Individuos</title>
     <link rel="stylesheet" th:href="@{/estilos.css}">
 </head>
 <body>
-<h1>Lista de Individuo</h1>
 
-<form method="get" action="/">
-    <input type="text" name="q" placeholder="Buscar por nombre...">
-    <button type="submit">Buscar</button>
-</form>
-<hr>
-<a th:href="@{/nuevo}">Nuevo Individuo</a>
-<hr>
+<nav class="navbar">
+    <span class="navbar-brand">📋 Gestión de Individuos</span>
+    <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="navbar-info">
+            Usuario: <span th:text="${usuarioActual}"></span>
+            &nbsp;|&nbsp;
+            Roles: <span th:text="${rolesActuales}"></span>
+            &nbsp;|&nbsp;
+            Admin: <span th:text="${esAdmin}"></span>
+        </div>
+        <form th:action="@{/logout}" method="post" style="margin:0">
+            <button type="submit" class="btn-logout">Cerrar sesión</button>
+        </form>
+    </div>
+</nav>
 
-<p><strong>Usuario</strong> <span th:text="${usuarioActual}"></span></p>
-<p><strong>Roles</strong> <span th:text="${rolesActual}"></span></p>
-<p><strong>¿Es Admin?</strong> <span th:text="${esAdmin}"></span></p>
+<div class="container">
+    <div class="card">
 
+        <div class="card-header">
+            <h2>Lista de Individuos</h2>
+            <div class="search-bar">
+                <form method="get" action="/" style="display:flex; gap:0.5rem; margin:0">
+                    <input type="text" name="q" placeholder="Buscar por nombre..." class="search-input">
+                    <button type="submit" class="btn-primary">Buscar</button>
+                </form>
+                <a th:href="@{/nuevo}" th:if="${esAdmin}" class="btn-primary">+ Nuevo Individuo</a>
+            </div>
+        </div>
 
-<table border="1" cellpadding="8">
-    <thead>
-    <tr>  
-        <th>Nombre</th>
-        <th>Apellido</th>
-        <th>Edad</th>
-        <th>Email</th>
-        <th>Telefono</th>
-        <th>Accion</th>
-    </tr>
-    </thead>
-    
-    <tbody>
-    <tr th:each="i : ${lista}">
-        <td th:text="${i.nombre}"></td>
-        <td th:text="${i.apellido}"></td>
-        <td th:text="${i.edad}"></td>
-        <td th:text="${i.email}"></td>
-        <td th:text="${i.telefono}"></td>
-        <td>
-            <a th:href="@{/detalle(id=${i.idIndividuo})}">Ver</a>          
-            <a th:href="@{/editar(id=${i.idIndividuo})}">Editar</a>
-            <a th:href="@{/eliminar(id=${i.idIndividuo})}">Eliminar</a>
-        
-        </tr>
-    </body>
-</table>
-<form th:action="@{/logout}" method="post">
-    <button type="submit">Cerrar Sesion</button>
-</form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Edad</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="i : ${lista}">
+                    <td th:text="${i.nombre}"></td>
+                    <td th:text="${i.apellido}"></td>
+                    <td th:text="${i.edad}"></td>
+                    <td th:text="${i.email}"></td>
+                    <td th:text="${i.telefono}"></td>
+                    <td>
+                        <a th:href="@{/detalle(id=${i.idIndividuo})}" class="action-link action-ver">Ver</a>
+                        <a th:href="@{/editar(id=${i.idIndividuo})}" th:if="${esAdmin}" class="action-link action-editar">Editar</a>
+                        <a th:href="@{/eliminar(id=${i.idIndividuo})}" th:if="${esAdmin}" class="action-link action-eliminar"
+                           onclick="return confirm('¿Deseas eliminar este registro?')">Eliminar</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(lista)}">
+                    <td colspan="6" class="empty-state">No hay registros todavía.</td>
+                </tr>
+            </tbody>
+        </table>
 
-</tbody>
+    </div>
+</div>
+
+</body>
 </html>
