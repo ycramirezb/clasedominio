@@ -18,6 +18,11 @@
 <a th:href="@{/nuevo}">Nuevo Individuo</a>
 <hr>
 
+<p><strong>Usuario</strong> <span th:text="${usuarioActual}"></span></p>
+<p><strong>Roles</strong> <span th:text="${rolesActual}"></span></p>
+<p><strong>¿Es Admin?</strong> <span th:text="${esAdmin}"></span></p>
+
+
 <table border="1" cellpadding="8">
     <thead>
     <tr>  
@@ -45,6 +50,9 @@
         </tr>
     </body>
 </table>
+<form th:action="@{/logout}" method="post">
+    <button type="submit">Cerrar Sesion</button>
+</form>
 
 </tbody>
 </html>

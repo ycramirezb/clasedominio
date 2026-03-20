@@ -9,7 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import jakarta.validation.Valid;
+import org.springframework.validation.BindingResult;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+
 
 
 @Controller
@@ -22,14 +26,7 @@ public class HomeController {
         this.individuoService =individuoService;     
     }
 
-    //Lista: trae los registro reales desde Mysql
-    @GetMapping("/")
-    public String index(Model model) {
 
-        var lista = individuoService.listarIndividuos();
-        model.addAttribute("lista", lista);
-        return "index";
-    }
     
     //DETALLE: trae un individuo por ID desde Mysql
     @GetMapping("/detalle")
@@ -63,7 +60,10 @@ public class HomeController {
     }
 
     @PostMapping("/guardar")
-    public String guardar(Individuo individuo) {
+    public String guardar(@Valid Individuo individuo, BindingResult resultado) {
+        if (resultado.hasErrors()){
+            return "form";
+        }
         individuoService.guardarIndividuo(individuo);       
         return "redirect:/";
     }
@@ -81,11 +81,40 @@ public class HomeController {
         model.addAttribute("individuo", individuo);
         return "/form";
     }
-    
-    
-    
-    
-    
 
+    @GetMapping("/")
+    public String index(Model model, Authentication authentication){
+        var lista = individuoService.listarIndividuos();
+        model.addAttribute("lista", lista);
+        boolean esAdmin = false;
+        String usuarioActual = "No autenticado";
+        String rolesActuales = "Sin roles";
+
+        if (authentication !=null){
+            usuarioActual = authentication.getName();
+            rolesActuales = authentication.getAuthorities().toString();
+
+            for (GrantedAuthority authority : authentication.getAuthorities()){
+                if (authority.getAuthority().equals("ROLE_ADMIN")) {
+                    esAdmin = true;
+                    break;
+                }
+                    
+            }
+        }
+
+        model.addAttribute("esAdmin", esAdmin);
+        model.addAttribute("usuarioActual", usuarioActual);
+        model.addAttribute("rolesActuales", rolesActuales);
+        return "index";
+
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return  "login";
+    }
+    
+    
     
 }

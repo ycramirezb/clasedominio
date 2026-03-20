@@ -13,18 +13,26 @@
         
         <label>Nombre</label>
         <input type="text" th:field="*{nombre}" required />
+        <span style="color:blue" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+        <br><br>
 
         <label>Apellido</label>
         <input type="text" th:field="*{apellido}" required /> 
+        <span style="color:blue" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
+        <br><br>
         
         <label>Edad</label>
         <input type="number" th:field="*{edad}" required /> 
 
         <label>Email</label>
         <input type="email" th:field="*{email}" required /> 
+        <span style="color:blue" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        <br><br>
 
         <label>Telefono</label>
         <input type="text" th:field="*{telefono}" required /> 
+        <span style="color:blue" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
+        <br><br>
 
         <br><br>
         <button type="submit">Guardar</button>
