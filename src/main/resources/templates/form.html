@@ -8,6 +8,8 @@
 <body>
     <h1 th:text="${individuo.idIndividuo == null ? 'Nuevo Individuo' : 'Editar Individuo'}"></h1>
 
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+
     <form th:action="@{/guardar}" th:object="${individuo}" method="post">
         <input type="hidden" th:field="*{IdIndividuo}" />
         
